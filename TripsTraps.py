@@ -1,0 +1,253 @@
+#TripsTraps
+
+from turtle import *
+
+def lõpp():
+    n=0
+    while n<9:
+        if kastid[n] != 0 and kastid[n] != 1:
+            return False
+        if kastid[n] == 0 or kastid[n] == 1:
+            n+=1
+        
+    return True
+
+def rist(x,y): #x ja y on kasti vasak ülemine nurk
+    up()
+    seth(270)
+    pensize(3)
+    color("yellowgreen")
+    goto(x,y)
+    left(45) #alg: suunatud alla
+    up()
+    forward(40)
+    down()
+    forward(200)
+    up()
+    goto(x+200,y)
+    right(90)
+    forward(40)
+    down()
+    forward(200)
+   
+def ring(x,y): #kasti ülemine vasak nurk
+    up()
+    seth(270)
+    pensize(4)
+    color("tomato")
+    goto(x+25,y-100)
+    down()
+    circle(75)
+
+def loe_ring(x,y):
+    if x<=-100 and y>=100:
+        x = -300
+        y = 300
+        if kastid[0] != 1:
+            kastid[0] = 1
+            j_ring(x,y)
+    
+    if x in range(-100,100) and y in range(100,300):
+        x = -100
+        y = 300
+        if kastid[1] != 1:
+            kastid[1] = 1
+            j_ring(x,y)
+    
+    if x>=100 and y>=100:
+        x = 100
+        y = 300
+        if kastid[2] != 1:
+            kastid[2] = 1
+            j_ring(x,y)
+        
+    if x<=-100 and y in range(-100,100):
+        x = -300
+        y = 100
+        if kastid[3] != 1:
+            kastid[3] = 1
+            j_ring(x,y)
+
+    if x in range(-100,100) and y in range(-100,100):
+        x = -100
+        y = 100
+        if kastid[4] != 1:
+            kastid[4] = 1
+            j_ring(x,y)
+        
+    if x>=100 and y in range(-100,100):
+        x = 100
+        y = 100
+        if kastid[5] != 1:
+            kastid[5] = 1
+            j_ring(x,y)
+        
+    if x<=-100 and y<=-100:
+        x = -300
+        y = -100
+        if kastid[6] != 1:
+            kastid[6] = 1
+            j_ring(x,y)
+        
+    if x in range(-100,100) and y<=-100:
+        x = -100
+        y = -100
+        if kastid[7] != 1:
+            kastid[7] = 1
+            j_ring(x,y)
+        
+    if x>=100 and y<=-100:
+        x = 100
+        y = -100
+        if kastid[8] != 1:
+            kastid[8] = 1
+            j_ring(x,y)
+
+def j_ring(x,y):
+    ring(x,y)
+    if kontroll():
+        up()
+        goto(-70, 320)
+        down()        
+        write("VÕIT!", font=("Arial",40,"normal"))
+        onscreenclick(None)
+        done()
+    if lõpp():
+        up()
+        goto(-70, 320)
+        down()        
+        write("VIIK!", font=("Arial",40,"normal"))
+        onscreenclick(None)
+        done()
+    print(x,y)
+    onscreenclick(loe_rist)
+
+def loe_rist(x,y):        
+    if x<=-100 and y>=100:
+        x = -300
+        y = 300
+        if kastid[0] != 0:
+            kastid[0] = 0
+            j_rist(x,y)
+    
+    if x in range(-100,100) and y in range(100,300):
+        x = -100
+        y = 300
+        if kastid[1] != 0:
+            kastid[1] = 0
+            j_rist(x,y)
+    
+    if x>=100 and y>=100:
+        x = 100
+        y = 300
+        if kastid[2] != 0:
+            kastid[2] = 0
+            j_rist(x,y)
+        
+    if x<=-100 and y in range(-100,100):
+        x = -300
+        y = 100
+        if kastid[3] != 0:
+            kastid[3] = 0
+            j_rist(x,y)
+
+    if x in range(-100,100) and y in range(-100,100):
+        x = -100
+        y = 100
+        if kastid[4] != 0:
+            kastid[4] = 0
+            j_rist(x,y)
+        
+    if x>=100 and y in range(-100,100):
+        x = 100
+        y = 100
+        if kastid[5] != 0:
+            kastid[5] = 0
+            j_rist(x,y)
+        
+    if x<=-100 and y<=-100:
+        x = -300
+        y = -100
+        if kastid[6] != 0:
+            kastid[6] = 0
+            j_rist(x,y)
+        
+    if x in range(-100,100) and y<=-100:
+        x = -100
+        y = -100
+        if kastid[7] != 0:
+            kastid[7] = 0
+            j_rist(x,y)
+        
+    if x>=100 and y<=-100:
+        x = 100
+        y = -100
+        if kastid[8] != 0:
+            kastid[8] = 0
+            j_rist(x,y)   
+ 
+def j_rist(x,y):
+    rist(x,y)
+    if kontroll():
+        up()
+        goto(-70, 320)
+        down()
+        write("VÕIT!", font=("Arial",40,"normal"))
+        onscreenclick(None)
+        reset()
+        
+    if lõpp():
+        up()
+        goto(-70, 320)
+        down()        
+        write("VIIK!", font=("Arial",40,"normal"))
+        onscreenclick(None)
+        reset()
+        
+    print(x,y)
+    onscreenclick(loe_ring)
+
+def joon(x,y):
+    up()
+    goto(x,y)
+    down()
+    forward(600)
+    
+def kontroll():
+    if kastid[0] == kastid[1] and kastid[1] == kastid[2]:
+        return True
+    elif kastid[3] == kastid[4] and kastid[4] == kastid[5]:
+        return True
+    elif kastid[6] == kastid[7] and kastid[7] == kastid[8]:
+        return True
+    elif kastid[0] == kastid[3] and kastid[3] == kastid[6]:
+        return True
+    elif kastid[0] == kastid[4] and kastid[4] == kastid[8]:
+        return True
+    elif kastid[1] == kastid[4] and kastid[4] == kastid[7]:
+        return True
+    elif kastid[2] == kastid[5] and kastid[5] == kastid[8]:
+        return True
+    elif kastid[2] == kastid[4] and kastid[4] == kastid[6]:
+        return True
+    else:
+        return False
+
+
+def kood():
+    kastid = [2,3,4,5,6,7,8,9,10]
+
+    hideturtle()
+    speed(0)
+
+    joon(-300,100)
+    joon(-300,-100)
+    right(90)
+    joon(-100,300)
+    joon(100,300)
+
+    onscreenclick(loe_ring)
+
+    done()
+
+
